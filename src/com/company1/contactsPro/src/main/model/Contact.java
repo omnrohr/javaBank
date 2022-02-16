@@ -13,6 +13,15 @@ public class Contact {
     private String phoneNumber;
 
     public Contact(String name, String birthDate, String phoneNumber) throws ParseException{
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("name cannot be null/blank");
+        }
+        if (phoneNumber == null || phoneNumber.isBlank()) {
+            throw new IllegalArgumentException("phone number cannot be null/blank");
+        }
+        if (phoneNumber.length() < 5) {
+            throw new IllegalArgumentException("phone number can't be less than 5 characters");
+        }
         this.name = name;
         this.age= calculateAge(birthDate);
         this.birthDate = birthDate;
@@ -31,14 +40,17 @@ public class Contact {
     }
 
     public void setName(String name) {
+        if (name == null || name.isBlank()){
+            throw new IllegalArgumentException("name cannot be null/blank");
+        }
         this.name = name;
     }
 
-    public int getAge() {
+    private int getAge() {
         return age;
     }
 
-    public void setAge(String birthDate) throws ParseException{
+    private void setAge(String birthDate) throws ParseException{
         this.age = calculateAge(birthDate);
     }
 
@@ -48,7 +60,7 @@ public class Contact {
 
     public void setBirthDate(String birthDate) throws ParseException {
         this.birthDate = birthDate;
-        this.age = calculateAge(birthDate);
+        setAge(birthDate);
     }
 
     public String getPhoneNumber() {
@@ -56,9 +68,26 @@ public class Contact {
     }
 
     public void setPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.isBlank()){
+            throw new IllegalArgumentException("phone number cannot be null/blank");
+        }else if (phoneNumber.length() < 5){
+            throw  new IllegalArgumentException("phone number can't be less than 5 characters");
+        }else
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * Name: calculateAge
+     * @param birthDate
+     * @return age (int)
+     * @throws ParseException
+     *
+     * Inside the function:
+     *   1. Parses a date from the birthDate String
+     *   2. Gets the current date
+     *   3. Subtracts the difference and returns the age.
+     *
+     */
     public int calculateAge(String birthDate) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         sdf.setLenient(false);
@@ -92,6 +121,6 @@ public class Contact {
         return "Name: " + this.name + "\n" +
                 "Phone number: " + this.phoneNumber + "\n" +
                 "Birth Date: " + this.birthDate + "\n" +
-                "Age: " + this.age + " year old\n";
+                "Age: " + this.age + " years old\n";
     }
 }
