@@ -1,17 +1,15 @@
 package com.company1.movieStore.main.model;
-
 import java.util.Objects;
 
 public class Movie {
     private String name;
-    public enum Format {DVD , BLUE_RAY};
-    private Format format;
-    private int rating;
+    private String format;
+    private double rating;
     private float sellingPrice;
     private float rentalPrice;
     private boolean isAvailable;
 
-    public Movie(String name, Format format, int rating, boolean isAvailable) {
+    public Movie(String name, String format, double rating, boolean isAvailable) {
         if (name == null || name.isBlank()){
             throw new IllegalArgumentException("Invalid name value!");
         }else if(rating < 0){
@@ -20,9 +18,24 @@ public class Movie {
         this.name = name;
         this.format = format;
         this.rating = rating;
-        this.sellingPrice = (format == Format.DVD) ? 2.25f:4.25f;
-        this.rentalPrice = (format == Format.BLUE_RAY) ? 0.99f: 1.99f;
+        this.sellingPrice = (format.equals("DVD")) ? 2.25f:4.25f;
+        this.rentalPrice = (format.equals("DVD")) ? 0.99f: 1.99f;
         this.isAvailable = isAvailable;
+    }
+
+    public Movie(String name, String format, double rating) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("name must contain a value");
+        }
+        if (rating < 0 || rating > 10) {
+            throw new IllegalArgumentException("Invalid rating");
+        }
+        this.name = name;
+        this.format = format;
+        this.rating = rating;
+        this.sellingPrice = (format.equals("DVD")) ? 2.25f:4.25f;
+        this.rentalPrice = (format.equals("DVD")) ? 0.99f: 1.99f;
+        this.isAvailable = true;
     }
 
     public Movie(Movie source) {
@@ -45,19 +58,19 @@ public class Movie {
         this.name = name;
     }
 
-    public Format getFormat() {
+    public String getFormat() {
         return format;
     }
 
-    public void setFormat(Format format) {
+    public void setFormat(String format) {
         this.format = format;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         if (rating < 0){
             throw new IllegalArgumentException("Invalid rating!");
         }
@@ -68,16 +81,16 @@ public class Movie {
         return sellingPrice;
     }
 
-    private void setSellingPrice(Format format) {
-        this.sellingPrice = (format == Format.DVD) ? 2.25f : 4.25f;
+    private void setSellingPrice(String format) {
+        this.sellingPrice = (format.equals("DVD")) ? 2.25f : 4.25f;
     }
 
     public float getRentalPrice() {
         return rentalPrice;
     }
 
-    public void setRentalPrice(Format format) {
-        this.rentalPrice = (format == Format.DVD) ? .99f: 1.99f;
+    public void setRentalPrice(String format) {
+        this.rentalPrice = (format.equals("DVD")) ? .99f: 1.99f;
     }
 
     public boolean isAvailable() {

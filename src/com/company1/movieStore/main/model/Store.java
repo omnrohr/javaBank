@@ -47,10 +47,7 @@ public class Store {
     }
 
     public void addMovie(Movie movie){
-        if (movie == null){
-            throw new IllegalArgumentException("Invalid movie data!");
-        }
-        this.movies.add(movie);
+        movies.add(movie);
     }
 
     public boolean sellMovie(Movie movie){
