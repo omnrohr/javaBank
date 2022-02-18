@@ -3,11 +3,13 @@ package com.company1.dealership.src.main.model;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Car {
+public class Car implements Comparable<Car>{
 
     private String make;
     private int price;
     private int year;
+
+
     public enum Color{RED, WHITE, BLUE, BLACK};
     private Color color;
     private String[] parts;
@@ -91,7 +93,7 @@ public class Car {
 
     @Override
     public int hashCode() {
-        return Objects.hash(make,price,year,color);
+        return Objects.hash(make,price,year,color,Arrays.toString(parts));
     }
 
     @Override
@@ -100,6 +102,12 @@ public class Car {
         if (!(o instanceof Car)) return false;
         Car car = (Car) o;
         return (this.make.equals(car.make) && this.price==car.price && this.year == car.year && this.color.equals(car.color));
+    }
+
+    @Override
+    public int compareTo(Car o) {
+        Car car = (Car) o;
+        return this.price - o.price;
     }
 
     @Override

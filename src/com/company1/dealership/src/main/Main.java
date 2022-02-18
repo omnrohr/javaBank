@@ -30,5 +30,6 @@ public class Main {
 
         dealership1.selCar(dealership1.getCar("nissan"));
         System.out.println(dealership1);
+        System.out.println(car1.compareTo(car2));
     }
 }
