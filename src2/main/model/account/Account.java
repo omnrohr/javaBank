@@ -1,4 +1,4 @@
-package com.company1.bank.src.main.model.account;
+package com.company1.bank.src2.main.model.account;
 
 import java.text.DecimalFormat;
 
@@ -8,12 +8,16 @@ public abstract class Account {
     private double balance;
 
     public Account(String id, String name, double balance){
-        if (id == null || id.isBlank()|| name == null || name.isBlank()){
-            throw new IllegalArgumentException("Invalid values");
+        if (id == null || id.isBlank()){
+            throw new IllegalArgumentException("Invalid Id");
+        }else if (name == null || name.isBlank()){
+            throw new IllegalArgumentException("Invalid Name");
+        }else if (balance < 0){
+            throw new IllegalArgumentException("Invalid Balance");
         }
         this.id = id;
         this.name = name;
-        this.balance = (balance > 0.0) ? balance:0;
+        this.balance = balance;
     }
 
     public Account(Account source){
@@ -58,7 +62,7 @@ public abstract class Account {
 
     public abstract boolean withdraw(double amount);
 
-    public abstract boolean deposit(double amount);
+    public abstract void deposit(double amount);
 
     protected double round(double amount){
         DecimalFormat formatter = new DecimalFormat("#.###");
