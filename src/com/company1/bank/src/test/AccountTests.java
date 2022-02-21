@@ -72,4 +72,11 @@ public class AccountTests {
         accounts[2].deposit(1000);
         assertEquals(1537.31, accounts[2].getBalance());
     }
+
+    @Test
+    public void incomeTax(){
+        accounts[0].deposit(4000);
+        ((Chequing)accounts[0]).tax(4000);
+        assertEquals(5374.51 ,accounts[0].getBalance());
+    }
 }

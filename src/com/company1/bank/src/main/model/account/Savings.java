@@ -22,8 +22,18 @@ public class Savings extends Account{
     }
 
     @Override
-    public void withdraw(double amount) {
+    public Account clone() {
+        return new Savings(this);
+    }
+
+    @Override
+    public boolean withdraw(double amount) {
+        if (amount + WITHDRAW_FEE >= getBalance()){
+            System.out.println("your balance is: " + getBalance());
+            return false;
+        }
         setBalance(getBalance() - amount - WITHDRAW_FEE);
+        return true;
     }
 
     @Override
